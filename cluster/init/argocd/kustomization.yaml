@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 buildMetadata: [originAnnotations]
 resources:
+  - app_default.yaml
   - app_infra.yaml
   - appproj_apps.yaml
   - appproj_infra.yaml
