@@ -7,4 +7,3 @@ resources:
   - appproj_apps.yaml
   - appproj_infra.yaml
   - appproj_meta.yaml
-

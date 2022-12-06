@@ -5,11 +5,11 @@ metadata:
   name: helm-guestbook
   namespace: helm-guestbook
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: helm-guestbook
-    server:
+    server: https://kubernetes.default.svc
   project: infra
   source:
     path: helm-guestbook
@@ -19,4 +19,3 @@ spec:
     automated: {}
     syncOptions:
       - "CreateNamespace=true"
-

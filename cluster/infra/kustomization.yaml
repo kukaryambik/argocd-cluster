@@ -4,4 +4,3 @@ kind: Kustomization
 buildMetadata: [originAnnotations]
 resources:
   - helm-guestbook
-

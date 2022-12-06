@@ -4,4 +4,3 @@ kind: Kustomization
 buildMetadata: [originAnnotations]
 resources:
   - app_helm-guestbook.yaml
-

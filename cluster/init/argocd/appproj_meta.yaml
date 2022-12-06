@@ -9,15 +9,15 @@ metadata:
 spec:
   description: Meta Project
   sourceRepos:
-  - '*'
+    - "*"
   destinations:
-  - namespace: '*'
-    server: '*'
+    - namespace: "*"
+      server: "*"
   clusterResourceWhitelist:
-  - group: ''
-    kind: 'Namespace'
+    - group: ""
+      kind: "Namespace"
   namespaceResourceWhitelist:
-  - group: 'argoproj.io'
-    kind: 'Application'
-  - group: 'argoproj.io'
-    kind: 'AppProject'
+    - group: "argoproj.io"
+      kind: "Application"
+    - group: "argoproj.io"
+      kind: "AppProject"
