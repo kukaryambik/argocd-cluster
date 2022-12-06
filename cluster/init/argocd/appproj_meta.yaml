@@ -4,23 +4,18 @@ kind: AppProject
 metadata:
   name: meta
   namespace: argocd
-  # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   description: Meta Project
-  # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
   - namespace: '*'
-    server: https://kubernetes.default.svc
-  # Deny all cluster-scoped resources from being created, except for Namespace
+    server: '*'
   clusterResourceWhitelist:
   - group: ''
     kind: 'Namespace'
-  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceWhitelist:
   - group: 'argoproj.io'
     kind: 'Application'
