@@ -10,6 +10,8 @@ spec:
     repoURL: https://github.com/kukaryambik/argocd-cluster.git
     targetRevision: HEAD
     path: cluster/infra
+  destination:
+    server: https://kubernetes.default.svc
   syncPolicy:
     automated: {}
     syncOptions:
