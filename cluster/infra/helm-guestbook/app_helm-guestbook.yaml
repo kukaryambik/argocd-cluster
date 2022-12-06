@@ -15,3 +15,8 @@ spec:
     path: helm-guestbook
     repoURL: "https://github.com/argoproj/argocd-example-apps.git"
     targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - "CreateNamespace=true"
+
