@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-argo
+  namespace: test-argo
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: test-argo
+    server: 'https://kubernetes.default.svc'
+  project: infra
+  source:
+    path: cluster/infra/ns_test-argo/content
+    repoURL: 'https://github.com/kukaryambik/argocd-cluster.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
