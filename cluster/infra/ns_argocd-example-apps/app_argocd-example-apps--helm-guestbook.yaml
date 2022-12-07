@@ -2,13 +2,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-guestbook
-  namespace: helm-guestbook
+  name: argocd-example-apps--helm-guestbook
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: helm-guestbook
+    namespace: argocd-example-apps
     server: 'https://kubernetes.default.svc'
   project: infra
   source:
