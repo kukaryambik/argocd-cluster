@@ -1,2 +1,4 @@
 ---
 enabled: "true"
+directory:
+  recurse: true

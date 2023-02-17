@@ -19,6 +19,7 @@ spec:
   template:
     metadata:
       annotations:
+        argocd.argoproj.io/sync-options: '{{ default "" .syncOptions }}'
         argocd.argoproj.io/sync-wave: "{{ default 30 .syncWave }}"
       name: "main--{{.path.basenameNormalized}}"
       namespace: argo
@@ -40,15 +41,3 @@ spec:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-          - FailOnSharedResource=true
-        managedNamespaceMetadata:
-          labels:
-            app.kubernetes.io/name: "{{.path.basenameNormalized}}"
-        retry:
-          limit: 5
-          backoff:
-            duration: 5s
-            factor: 5
-            maxDuration: 10m

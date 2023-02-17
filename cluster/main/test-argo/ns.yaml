@@ -1,0 +1,7 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: test-argo
+  labels:
+    app.kubernetes.io/name: test-argo

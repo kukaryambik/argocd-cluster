@@ -16,11 +16,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - FailOnSharedResource=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 5s
-        factor: 5
-        maxDuration: 10m
