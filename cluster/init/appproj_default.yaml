@@ -3,11 +3,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: default
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   description: Default Project
+  sourceNamespaces:
+    - "*"
   sourceRepos:
     - "*"
   destinations:

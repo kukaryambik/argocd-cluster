@@ -2,15 +2,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-example-apps--helm-guestbook
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  name: helm-guestbook
+  namespace: argocd-example-apps
 spec:
   destination:
     namespace: argocd-example-apps
     server: 'https://kubernetes.default.svc'
-  project: infra
+  project: argocd-example-apps
   source:
     path: helm-guestbook
     repoURL: 'https://github.com/argoproj/argocd-example-apps.git'
@@ -18,5 +16,12 @@ spec:
   syncPolicy:
     automated:
       prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 5
+        maxDuration: 10m

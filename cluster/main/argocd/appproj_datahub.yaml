@@ -1,0 +1,14 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd-example-apps
+spec:
+  description: "Project for argocd-example-apps"
+  destinations:
+    - namespace: "argocd-example-apps"
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - "*"
+  sourceNamespaces:
+    - "argocd-example-apps"

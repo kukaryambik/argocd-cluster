@@ -2,19 +2,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra
-  namespace: argocd
+  name: init
 spec:
-  project: meta
+  project: default
   source:
     repoURL: https://github.com/kukaryambik/argocd-cluster.git
     targetRevision: HEAD
-    path: cluster/infra
+    path: cluster/init
   destination:
     server: https://kubernetes.default.svc
+    namespace: argo
   syncPolicy:
     automated:
       prune: true
+      selfHeal: true
     syncOptions:
-      - CreateNamespace=true
-
+      - FailOnSharedResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 5
+        maxDuration: 10m

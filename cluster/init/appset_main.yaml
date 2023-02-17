@@ -1,0 +1,54 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: main
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: https://github.com/kukaryambik/argocd-cluster.git
+        revision: HEAD
+        files:
+          - path: cluster/main/*/.argocd-source.yaml
+      selector:
+        matchExpressions:
+          - key: "enabled"
+            operator: In
+            values: ["true"]
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{ default 30 .syncWave }}"
+      name: "main--{{.path.basenameNormalized}}"
+      namespace: argo
+    spec:
+      destination:
+        namespace: "{{.path.basenameNormalized}}"
+        server: "https://kubernetes.default.svc"
+      ignoreDifferences:
+        - group: "*"
+          kind: "*"
+          jqPathExpressions:
+            - '. | select(.metadata.annotations."argocd.argoproj.io/ignore-differences" != null) | .spec, .data'
+      project: default
+      source:
+        path: "{{.path.path}}"
+        repoURL: https://github.com/kukaryambik/argocd-cluster.git
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - FailOnSharedResource=true
+        managedNamespaceMetadata:
+          labels:
+            app.kubernetes.io/name: "{{.path.basenameNormalized}}"
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 5
+            maxDuration: 10m
