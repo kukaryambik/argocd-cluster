@@ -22,16 +22,11 @@ spec:
         argocd.argoproj.io/sync-options: '{{ default "" .syncOptions }}'
         argocd.argoproj.io/sync-wave: "{{ default 30 .syncWave }}"
       name: "main--{{.path.basenameNormalized}}"
-      namespace: argo
+      namespace: argocd
     spec:
       destination:
         namespace: "{{.path.basenameNormalized}}"
         server: "https://kubernetes.default.svc"
-      ignoreDifferences:
-        - group: "*"
-          kind: "*"
-          jqPathExpressions:
-            - '. | select(.metadata.annotations."argocd.argoproj.io/ignore-differences" != null) | .spec, .data'
       project: default
       source:
         path: "{{.path.path}}"
