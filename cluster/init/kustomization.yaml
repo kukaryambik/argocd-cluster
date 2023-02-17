@@ -21,6 +21,11 @@ helmCharts:
           kustomize.buildOptions: --enable-helm
         params:
           application.namespaces: "*"
+      extraObjects:
+        - kind: Namespace
+          apiVersion: v1
+          metadata:
+            name: argocd
       controller:
         clusterAdminAccess:
           enabled: true
