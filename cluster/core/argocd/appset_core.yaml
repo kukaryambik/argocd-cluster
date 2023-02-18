@@ -15,9 +15,6 @@ spec:
     preserveResourcesOnDeletion: true
   template:
     metadata:
-      annotations:
-        argocd.argoproj.io/sync-options: '{{ default "" .syncOptions }}'
-        argocd.argoproj.io/sync-wave: "{{ default 0 .syncWave }}"
       name: "core--{{.path.basenameNormalized}}"
       namespace: argocd
     spec:

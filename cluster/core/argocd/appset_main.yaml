@@ -13,9 +13,6 @@ spec:
           - path: cluster/main/*
   template:
     metadata:
-      annotations:
-        argocd.argoproj.io/sync-options: '{{ default "" .syncOptions }}'
-        argocd.argoproj.io/sync-wave: "{{ default 30 .syncWave }}"
       name: "main--{{.path.basenameNormalized}}"
       namespace: argocd
     spec:
