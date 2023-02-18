@@ -1,7 +1,0 @@
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: vault
-  labels:
-    app.kubernetes.io/name: vault
