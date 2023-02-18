@@ -7,11 +7,11 @@ metadata:
 spec:
   destination:
     namespace: argocd-example-apps
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   project: argocd-example-apps
   source:
     path: helm-guestbook
-    repoURL: 'https://github.com/argoproj/argocd-example-apps.git'
+    repoURL: "https://github.com/argoproj/argocd-example-apps.git"
     targetRevision: HEAD
   syncPolicy:
     automated:

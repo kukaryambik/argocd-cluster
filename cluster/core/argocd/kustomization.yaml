@@ -4,8 +4,8 @@ kind: Kustomization
 buildMetadata: [originAnnotations]
 namespace: argocd
 resources:
-  - app_init.yaml
   - appproj_default.yaml
+  - appset_core.yaml
   - appset_main.yaml
 helmCharts:
   - name: argo-cd

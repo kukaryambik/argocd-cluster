@@ -2,32 +2,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: main
+  name: core
 spec:
   goTemplate: true
   generators:
     - git:
         repoURL: https://github.com/kukaryambik/argocd-cluster.git
         revision: HEAD
-        files:
-          - path: cluster/main/*/.argocd-source.yaml
-      selector:
-        matchExpressions:
-          - key: "enabled"
-            operator: In
-            values: ["true"]
+        directories:
+          - path: cluster/core/*
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   template:
     metadata:
       annotations:
         argocd.argoproj.io/sync-options: '{{ default "" .syncOptions }}'
-        argocd.argoproj.io/sync-wave: "{{ default 30 .syncWave }}"
-      name: "main--{{.path.basenameNormalized}}"
+        argocd.argoproj.io/sync-wave: "{{ default 0 .syncWave }}"
+      name: "core--{{.path.basenameNormalized}}"
       namespace: argocd
     spec:
       destination:
         namespace: "{{.path.basenameNormalized}}"
         server: "https://kubernetes.default.svc"
-      project: default
+      project: init
       source:
         path: "{{.path.path}}"
         repoURL: https://github.com/kukaryambik/argocd-cluster.git

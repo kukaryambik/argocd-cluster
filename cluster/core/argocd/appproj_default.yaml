@@ -4,7 +4,6 @@ kind: AppProject
 metadata:
   name: default
 spec:
-  description: Default Project
   sourceNamespaces:
     - "*"
   sourceRepos:
