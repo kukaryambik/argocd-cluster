@@ -1,7 +1,0 @@
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: argocd-example-apps
-  labels:
-    app.kubernetes.io/name: argocd-example-apps

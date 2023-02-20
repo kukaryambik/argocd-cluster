@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: main
+  name: default
 spec:
   goTemplate: true
   generators:
@@ -10,10 +10,10 @@ spec:
         repoURL: https://github.com/kukaryambik/argocd-cluster.git
         revision: HEAD
         directories:
-          - path: cluster/main/*
+          - path: cluster/*
   template:
     metadata:
-      name: "main--{{.path.basenameNormalized}}"
+      name: "default--{{.path.basenameNormalized}}"
       namespace: argocd
     spec:
       destination:
@@ -28,3 +28,20 @@ spec:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - FailOnSharedResource=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 5
+            maxDuration: 10m
+        managedNamespaceMetadata:
+          annotations:
+            argocd.argoproj.io/sync-options: >-
+              ServerSideApply=true,
+              Replace=false,
+              Force=false
+          labels:
+            app.kubernetes.io/name: "{{.path.basenameNormalized}}"
